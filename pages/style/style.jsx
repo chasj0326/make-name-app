@@ -22,8 +22,9 @@ const styleSheet = `
   .box-category{
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     width: 600px;
+    flex-wrap: wrap;
   }
   .editor{
     display: flex;
@@ -46,6 +47,15 @@ const styleSheet = `
   .explain{
     margin-left: 8px;
     font-size: 16px;
+  }
+  .edit-detail-box{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .category-emoji{
+    font-size: 30px;
+    margin-right: 10px;
   }
   .box-submit{
     height: 100px;
@@ -71,6 +81,9 @@ const styleSheet = `
     padding: 6px 12px;
     border-radius: 10px;
     box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.2);
+  }
+  .btn-category{
+    margin: 4px;
   }
   .btn-submit{
     font-size: 18px;
