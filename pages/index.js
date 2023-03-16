@@ -1,5 +1,16 @@
-import Head from 'next/head.js'
-import styleSheet from './style/style.jsx'
+// client-side 기능 TODO 리스트
+// client-side 목표 : 사용자 입력값들을 총합하여 AI 에게 날릴 명령을 콘솔에 출력
+// 1. 카테고리 버튼을 클릭하면 클릭한 카테고리를 state에 저장한다
+// 1-1. emoji, text, color 를 각각 저장한다.
+// 1-2. 저장된 state 값들을 바탕으로 editor 에 변화를 준다.
+// 2. detail input 값을 state 에 저장한다.
+// 3. include input 값을 state 에 저장한다.
+// 4. 이름짓기 버튼을 클릭하면 저장된 데이터를 바탕으로 명령을 종합한다.
+// 4-1. 설명란이 공백일 경우 프롬프트에 랜덤 이름을 만든다고 경고해준다.
+// 4-2. 포함되어야 하는 문자열은 공백이다.
+
+import styleSheet from './style/style.jsx';
+import { useState } from 'react';
 
 export default function Home() {
   const categoryBtnData = [
