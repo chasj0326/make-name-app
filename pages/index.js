@@ -19,7 +19,7 @@ export default function Home() {
     {emoji:'📦', text: '상품', color: 'yellow'},
     {emoji:'📜', text: '글 제목', color: 'blue'},
     {emoji:'📱', text: '서비스', color: 'pink'},
-    {emoji:'👥', text: '팀/그룹', color: 'yellow'},
+    {emoji:'👥', text: '팀/그룹', color: 'green'},
     {emoji:'❓', text: '아무개', color: 'gray'},
   ]
   const [category, setCategory] = useState(categoryBtnData[0]);

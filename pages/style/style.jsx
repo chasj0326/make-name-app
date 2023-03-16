@@ -24,6 +24,7 @@ const styleSheet = `
     align-items: center;
     justify-content: center;
     width: 600px;
+    height: 74px;
     flex-wrap: wrap;
   }
   .editor{
@@ -81,9 +82,10 @@ const styleSheet = `
     padding: 6px 12px;
     border-radius: 10px;
     box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.2);
+    transition: .2s;
   }
   .btn-category{
-    margin: 4px;
+    margin: 6px;
   }
   .btn-submit{
     font-size: 18px;
@@ -93,20 +95,44 @@ const styleSheet = `
   .btn-pupple{
     background-color: #8E72FF;
   }
+  .btn-pupple:hover{
+    box-shadow: 0px 0px 0px 3px #4a29cf7c
+  }
   .btn-mint{
     background-color: #1BC18F;
+  }
+  .btn-mint:hover{
+    box-shadow: 0px 0px 0px 3px #2da6827e
   }
   .btn-yellow{
     background-color: #F9A01B;
   }
+  .btn-yellow:hover{
+    box-shadow: 0px 0px 0px 3px #da952d86
+  }
   .btn-blue{
     background-color: #1BA9F9;
+  }
+  .btn-blue:hover{
+    box-shadow: 0px 0px 0px 3px #279ee388
   }
   .btn-pink{
     background-color: #EB3984;
   }
+  .btn-pink:hover{
+    box-shadow: 0px 0px 0px 3px #dc43828f
+  }
   .btn-gray{
     background-color: #616161;
+  }
+  .btn-gray:hover{
+    box-shadow: 0px 0px 0px 3px #6161617d
+  }
+  .btn-green{
+    background-color: #8AC114
+  }
+  .btn-green:hover{
+    box-shadow: 0px 0px 0px 3px #90c12897
   }
 `
 
