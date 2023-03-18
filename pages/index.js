@@ -1,5 +1,6 @@
 import styleSheet from './style/style.jsx';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import MakeText from './util/makeText.js';
 import categoryData from './data/categoryData.js';
 
@@ -8,6 +9,7 @@ export default function Home() {
   const [category, setCategory] = useState(categoryData[0]);
   const [detail, setDetail] = useState('');
   const [include, setInclude] = useState('');
+  const [result, setResult] = useState('')
 
   let makeText = new MakeText(category);
   useEffect(()=>{
@@ -15,7 +17,8 @@ export default function Home() {
     console.log(makeText);
   }, [category]);
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if(detail.trim().length<1){
       alert('설명을 입력해주세요');
       return;
@@ -24,7 +27,27 @@ export default function Home() {
       if(!confirm('포함되어야 하는 문자열이 없나요?')){
         return;
       }
-    }console.log(makeText.commandText(detail, include.trim()));
+    }
+    const command = makeText.commandText(detail, include.trim());
+    try{
+      const response = await axios('',{
+        method: 'POST',
+        headers: {
+          "Content-Type" : "application/json"
+        },
+        data: {
+          command: command
+        }
+      });
+      const data = response.data;
+      if(response.status==='200'){
+        throw data.error || new Error(`request error : ${response.status}`)
+      }
+      setResult(data.result);
+    }
+    catch{
+      alert(error.message);
+    }
   }
 
   return (
@@ -54,7 +77,6 @@ export default function Home() {
                 { category.emoji } 
               </div>
             </div>
-            
             <textarea 
               className='input input-detail'
               value = {detail}
