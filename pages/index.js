@@ -14,15 +14,66 @@ import { useState, useEffect } from 'react';
 
 export default function Home() {
   const categoryBtnData = [
-    {emoji:'🐶😺', text: '반려동물', color: 'pupple'},
-    {emoji:'🕹️', text: '별명', color: 'mint'},
-    {emoji:'📦', text: '상품', color: 'yellow'},
-    {emoji:'📜', text: '글 제목', color: 'blue'},
-    {emoji:'📱', text: '서비스', color: 'pink'},
-    {emoji:'👥', text: '팀/그룹', color: 'green'},
-    {emoji:'❓', text: '아무개', color: 'gray'},
+    // type : 1 = '~의 이름 짓기', 0 = '~ 짓기', -1 = 아무개
+    {emoji:'🐶😺', text: '반려동물', color: 'pupple', type: 1},
+    {emoji:'🕹️', text: '별명', color: 'mint', type: 0},
+    {emoji:'📦', text: '상품', color: 'yellow', type: 1},
+    {emoji:'📜', text: '글 제목', color: 'blue', type: 0},
+    {emoji:'📱', text: '서비스', color: 'pink', type:1},
+    {emoji:'👥', text: '팀/그룹', color: 'green', type:1},
+    {emoji:'❓', text: '아무개', color: 'gray', type:-1},
   ]
   const [category, setCategory] = useState(categoryBtnData[0]);
+  const [detail, setDetail] = useState('');
+  const [include, setInclude] = useState('');
+  
+  const buttonText = () => {
+    if(category.type===-1){
+      return '이름 짓기'
+    }
+    if(category.type===0){
+      return `${category.text} 짓기`
+    }
+    return `${category.text} 이름 짓기`
+  }
+  const detailExplainText = () => {
+    const baseExplain = '설명을 입력해 주세요'
+    return(
+      category.type<0?baseExplain:category.text+'에 대한 '+baseExplain
+    );
+  }
+  const commandText = (includeBoolean) => {
+    let baseCommand = ''
+    if(category.type===0){
+      baseCommand = `${category.text}을 지어주세요.\n`
+    }
+    else if(category.type===1){
+      baseCommand = `${category.text} 이름을 지어주세요.\n`
+    }
+    else{
+      baseCommand = '이름을 지어주세요.\n'
+    }
+    return(
+      includeBoolean?
+      baseCommand+`설명: ${detail}\n포함되어야 하는 문자열: ${include}`:
+      baseCommand+`설명: ${detail}`
+    )
+  }
+  const handleSubmit = () => {
+    if(detail.trim().length<1){
+      alert('설명을 입력해주세요');
+      return;
+    }
+    if(include.trim().length<1){
+      if(!confirm('포함되어야 하는 문자열이 없나요?')){
+        return;
+      }
+      console.log(commandText(false));
+    }
+    else{
+      console.log(commandText(true));
+    }
+  }
   return (
     <>
       <div className='container'>
@@ -44,34 +95,33 @@ export default function Home() {
           <div className='edit-box'>
             <div className='edit-detail-box'>
               <p className='explain fw-b'>
-                {
-                  category.text==='아무개' ?
-                  '설명을 입력해 주세요.' :
-                  `${category.text}에 대한 설명을 입력해 주세요.`
-                }
+                {detailExplainText()}
               </p>
               <div className='category-emoji'>
                 { category.emoji } 
               </div>
             </div>
             
-            <textarea className='input input-detail'></textarea>
+            <textarea 
+              className='input input-detail'
+              value = {detail}
+              onChange={(e)=>setDetail(e.target.value)}
+            ></textarea>
           </div>
           <div className='edit-box'>
             <p className='explain fw-b'>포함되어야 하는 문자열이 있나요?</p>
-            <input className='input input-include'></input>
+            <input 
+              className='input input-include'
+              value = {include}
+              onChange={(e)=>setInclude(e.target.value)}
+            ></input>
           </div>
           <div className='box-submit'>
-            <button className={`btn btn-submit btn-${category.color} text-bright fw-b`}>
-              {
-                category.text==='아무개'?
-                '이름 짓기':
-                (
-                  category.text==='별명' || category.text==='글 제목'?
-                  `${category.text} 짓기`:
-                  `${category.text} 이름 짓기`
-                )
-              }
+            <button 
+              className={`btn btn-submit btn-${category.color} text-bright fw-b`}
+              onClick={()=>handleSubmit()}
+            >
+              {buttonText()}
             </button>
           </div>
         </div>
