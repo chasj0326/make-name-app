@@ -21,18 +21,18 @@ class MakeText{
   commandText = (detail, include) => {
     let baseCommand = ''
     if(this.type===0){
-      baseCommand = `${this.text}을 지어주세요.\n`
+      baseCommand = `${this.text}을 한글로 추천해주세요.\n`
     }
     else if(this.type===1){
-      baseCommand = `${this.text} 이름을 지어주세요.\n`
+      baseCommand = `${this.text} 한글 이름을 추천해주세요.\n`
     }
     else{
-      baseCommand = '이름을 지어주세요.\n'
+      baseCommand = '한글 이름을 아무거나 추천해주세요.\n'
     }
     return(
       include?
-      baseCommand+`설명: ${detail}\n포함되어야 하는 문자열: ${include}`:
-      baseCommand+`설명: ${detail}`
+      baseCommand+`설명: ${detail}.\n포함되어야 하는 문자열:${include}.\n\n`:
+      baseCommand+`설명: ${detail}\n`
     )
   }
 

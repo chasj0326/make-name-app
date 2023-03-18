@@ -17,8 +17,8 @@ export default function Home() {
     console.log(makeText);
   }, [category]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async(e) => {
+    // e.preventDefault();
     if(detail.trim().length<1){
       alert('설명을 입력해주세요');
       return;
@@ -29,8 +29,9 @@ export default function Home() {
       }
     }
     const command = makeText.commandText(detail, include.trim());
+    console.log(command)
     try{
-      const response = await axios('',{
+      const response = await axios('./api/generate',{
         method: 'POST',
         headers: {
           "Content-Type" : "application/json"
@@ -45,11 +46,14 @@ export default function Home() {
       }
       setResult(data.result);
     }
-    catch{
+    catch(error){
       alert(error.message);
     }
   }
 
+  useEffect(()=>{
+    console.log(result);
+  }, [result])
   return (
     <>
       <div className='container'>
@@ -100,6 +104,9 @@ export default function Home() {
             </button>
           </div>
         </div>
+      </div>
+      <div>
+        {result}
       </div>
       <style jsx>{styleSheet}</style>
     </>
