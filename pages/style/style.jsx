@@ -75,6 +75,19 @@ const styleSheet = `
     height: 120px;
     padding: 20px;
   }
+  .result-box{
+    justify-content: center;
+  }
+  .result-emoji{
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+  .result-text{
+    margin-top: 20px;
+    text-align: center;
+    font-size: 18px;
+    padding: 15px 30px;
+  }
   .btn{
     cursor: pointer;
     font-family: 'NanumSquare', sans-serif;

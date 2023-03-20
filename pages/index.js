@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import MakeText from './util/makeText.js';
 import categoryData from './data/categoryData.js';
+import ResultBox from './components/ResultBox.js';
+import LoadingBox from './components/LoadingBox.js';
 
 export default function Home() {
   
@@ -10,29 +12,34 @@ export default function Home() {
   const [detail, setDetail] = useState('');
   const [include, setInclude] = useState('');
   const [submitState, setSubmitState] = useState(0);
-
-  const [result, setResult] = useState('')
+  const [result, setResult] = useState('');
+  const initStates = () => {
+    setDetail('');
+    setInclude('');
+    setSubmitState(0);
+  }
 
   let makeText = new MakeText(category);
   useEffect(()=>{
     setSubmitState(0);
     makeText = new MakeText(category);
-    console.log(makeText);
+    initStates();
   }, [category]);
 
-  const handleSubmit = async(e) => {
-    setSubmitState(1);
-    if(detail.trim().length<1){
-      alert('설명을 입력해주세요');
-      return;
-    }
-    if(include.trim().length<1){
-      if(!confirm('포함되어야 하는 문자열이 없나요?')){
+  const handleSubmit = async() => {
+    if(submitState===0){
+      if(detail.trim().length<1){
+        alert('설명을 입력해주세요');
         return;
       }
+      if(include.trim().length<1){
+        if(!confirm('포함되어야 하는 문자열이 없나요?')){
+          return;
+        }
+      }
     }
+    setSubmitState(1);
     const command = makeText.commandText(detail, include.trim());
-    console.log(command)
     try{
       const response = await axios('./api/generate',{
         method: 'POST',
@@ -44,18 +51,21 @@ export default function Home() {
         }
       });
       const data = response.data;
-      if(response.status==='200'){
+      if(response.status!==200){
         throw data.error || new Error(`request error : ${response.status}`)
       }
       setSubmitState(2);
       setResult(data.result);
     }
     catch(error){
-      alert(error.message);
+      if (response.status!==500){
+        alert(error.message);
+      }
+      setSubmitState(0);
     }
   }
 
-  const mainElement = () => {
+  const makeBoxMain = () => {
     if(submitState===0){
       return(
         <div className='box-main'>
@@ -95,12 +105,16 @@ export default function Home() {
     }
     if(submitState===1){
       return(
-        <div className='box-main'>로딩중</div>
+        LoadingBox()
       )
     }
     if(submitState===2){
       return(
-        <div className='box-main'>{result}</div>
+        <ResultBox
+          result = {result}
+          category = {category}
+          setSubmitState = {setSubmitState}
+        ></ResultBox>
       )
     }
   }
@@ -122,7 +136,7 @@ export default function Home() {
             )
           }
         </nav>
-        {mainElement()}
+        {makeBoxMain()}
       </div>
       <style jsx>{styleSheet}</style>
     </>
