@@ -70,10 +70,16 @@ const styleSheet = `
     border-radius: 20px;
     padding: 10px 20px;
     box-sizing: border-box;
+    transition: .3s;
   }
   .input-detail{
     height: 120px;
     padding: 20px;
+  }
+  .input-detail:focus,
+  .input-include:focus{
+    outline: none;
+    box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.4);
   }
   .result-box{
     justify-content: center;

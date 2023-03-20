@@ -1,6 +1,7 @@
 import styleSheet from './style/style.jsx';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Head from 'next/head.js';
 import MakeText from './util/makeText.js';
 import categoryData from './data/categoryData.js';
 import ResultBox from './components/ResultBox.js';
@@ -84,14 +85,19 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>AI 작명소</title>
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+      </Head>
       <div className='container'>
         <div className='box-title'>
           <h2 className='title fw-eb text-dark'>AI 작명소</h2>
         </div>
         <nav className='box-category'>
           {
-            categoryData.map((item)=>
-              <button 
+            categoryData.map((item, key)=>
+              <button
+                key={key}
                 className={`btn btn-category btn-${item.color} text-bright`}
                 onClick={()=>{setCategory(item)}}>
                 {item.emoji + ' '+ item.text}
