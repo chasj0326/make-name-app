@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
 const { Configuration, OpenAIApi } = require("openai");
 
-dotenv.config({path:__dirname + '../../.env'})
+dotenv.config({path:__dirname + '../../../.env'})
 
 
 const configuration = new Configuration({

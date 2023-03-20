@@ -19,6 +19,9 @@ const styleSheet = `
     justify-content: center;
     margin-top: 100px;
   }
+  .title{
+    cursor: pointer;
+  }
   .box-category{
     display: flex;
     align-items: center;

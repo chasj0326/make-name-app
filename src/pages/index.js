@@ -1,12 +1,11 @@
-import styleSheet from './style/style.jsx';
+import styleSheet from '../../style/style.jsx';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Head from 'next/head.js';
-import MakeText from './util/makeText.js';
-import categoryData from './data/categoryData.js';
-import ResultBox from './components/ResultBox.js';
-import LoadingBox from './components/LoadingBox.js';
-
+import MakeText from '../util/makeText.js';
+import categoryData from '../data/categoryData.js';
+import ResultBox from '../components/ResultBox.js';
+import LoadingBox from '../components/LoadingBox.js';
 export default function Home() {
   
   const [category, setCategory] = useState(categoryData[0]);
@@ -59,7 +58,7 @@ export default function Home() {
       setResult(data.result);
     }
     catch(error){
-      if (response.status!==500){
+      if (error.response.status!==500){
         alert(error.message);
       }
       setSubmitState(0);
@@ -91,7 +90,7 @@ export default function Home() {
       </Head>
       <div className='container'>
         <div className='box-title'>
-          <h2 className='title fw-eb text-dark'>AI 작명소</h2>
+          <h2 className='title fw-eb text-dark' onClick={()=>initAllStates()}>AI 작명소</h2>
         </div>
         <nav className='box-category'>
           {
