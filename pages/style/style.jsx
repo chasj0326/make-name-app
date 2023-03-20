@@ -88,6 +88,9 @@ const styleSheet = `
     font-size: 18px;
     padding: 15px 30px;
   }
+  .loading-box{
+    padding-top: 100px;
+  }
   .btn{
     cursor: pointer;
     font-family: 'NanumSquare', sans-serif;

@@ -13,7 +13,7 @@ export default function Home() {
   const [include, setInclude] = useState('');
   const [submitState, setSubmitState] = useState(0);
   const [result, setResult] = useState('');
-  const initStates = () => {
+  const initAllStates = () => {
     setDetail('');
     setInclude('');
     setSubmitState(0);
@@ -23,7 +23,7 @@ export default function Home() {
   useEffect(()=>{
     setSubmitState(0);
     makeText = new MakeText(category);
-    initStates();
+    initAllStates();
   }, [category]);
 
   const handleSubmit = async() => {
@@ -65,7 +65,7 @@ export default function Home() {
     }
   }
 
-  const makeBoxMain = () => {
+  const MainBox = () => {
     if(submitState===0){
       return(
         <div className='box-main'>
@@ -105,7 +105,7 @@ export default function Home() {
     }
     if(submitState===1){
       return(
-        LoadingBox()
+        <LoadingBox/>
       )
     }
     if(submitState===2){
@@ -136,7 +136,7 @@ export default function Home() {
             )
           }
         </nav>
-        {makeBoxMain()}
+        <MainBox/>
       </div>
       <style jsx>{styleSheet}</style>
     </>
