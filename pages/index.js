@@ -9,16 +9,19 @@ export default function Home() {
   const [category, setCategory] = useState(categoryData[0]);
   const [detail, setDetail] = useState('');
   const [include, setInclude] = useState('');
+  const [submitState, setSubmitState] = useState(0);
+
   const [result, setResult] = useState('')
 
   let makeText = new MakeText(category);
   useEffect(()=>{
+    setSubmitState(0);
     makeText = new MakeText(category);
     console.log(makeText);
   }, [category]);
 
   const handleSubmit = async(e) => {
-    // e.preventDefault();
+    setSubmitState(1);
     if(detail.trim().length<1){
       alert('설명을 입력해주세요');
       return;
@@ -44,6 +47,7 @@ export default function Home() {
       if(response.status==='200'){
         throw data.error || new Error(`request error : ${response.status}`)
       }
+      setSubmitState(2);
       setResult(data.result);
     }
     catch(error){
@@ -51,27 +55,10 @@ export default function Home() {
     }
   }
 
-  useEffect(()=>{
-    console.log(result);
-  }, [result])
-  return (
-    <>
-      <div className='container'>
-        <div className='box-title'>
-          <h2 className='title fw-eb text-dark'>AI 작명소</h2>
-        </div>
-        <nav className='box-category'>
-          {
-            categoryData.map((item)=>
-              <button 
-                className={`btn btn-category btn-${item.color} text-bright`}
-                onClick={()=>{setCategory(item)}}>
-                {item.emoji + ' '+ item.text}
-              </button>
-            )
-          }
-        </nav>
-        <div className='editor'>
+  const mainElement = () => {
+    if(submitState===0){
+      return(
+        <div className='box-main'>
           <div className='edit-box'>
             <div className='edit-detail-box'>
               <p className='explain fw-b'>
@@ -104,9 +91,38 @@ export default function Home() {
             </button>
           </div>
         </div>
-      </div>
-      <div>
-        {result}
+      )
+    }
+    if(submitState===1){
+      return(
+        <div className='box-main'>로딩중</div>
+      )
+    }
+    if(submitState===2){
+      return(
+        <div className='box-main'>{result}</div>
+      )
+    }
+  }
+
+  return (
+    <>
+      <div className='container'>
+        <div className='box-title'>
+          <h2 className='title fw-eb text-dark'>AI 작명소</h2>
+        </div>
+        <nav className='box-category'>
+          {
+            categoryData.map((item)=>
+              <button 
+                className={`btn btn-category btn-${item.color} text-bright`}
+                onClick={()=>{setCategory(item)}}>
+                {item.emoji + ' '+ item.text}
+              </button>
+            )
+          }
+        </nav>
+        {mainElement()}
       </div>
       <style jsx>{styleSheet}</style>
     </>

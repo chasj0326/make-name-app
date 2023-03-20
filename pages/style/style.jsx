@@ -27,7 +27,7 @@ const styleSheet = `
     height: 74px;
     flex-wrap: wrap;
   }
-  .editor{
+  .box-main{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -36,7 +36,7 @@ const styleSheet = `
     height: 400px;
     border-radius: 20px;
     box-shadow: 0px 2px 4px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
+    margin-top: 30px;
     padding: 12px 24px;
     box-sizing: border-box;
   }

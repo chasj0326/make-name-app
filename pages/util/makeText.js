@@ -31,7 +31,7 @@ class MakeText{
     }
     return(
       include?
-      baseCommand+`설명: ${detail}.\n포함되어야 하는 문자열:${include}.\n\n`:
+      baseCommand+`설명: ${detail}.\n포함되어야 하는 문자열:${include}\n\n`:
       baseCommand+`설명: ${detail}\n`
     )
   }
