@@ -66,43 +66,6 @@ export default function Home() {
   }
 
   const MainBox = () => {
-    if(submitState===0){
-      return(
-        <div className='box-main'>
-          <div className='edit-box'>
-            <div className='edit-detail-box'>
-              <p className='explain fw-b'>
-                {makeText.detailExplainText()}
-              </p>
-              <div className='category-emoji'>
-                { category.emoji } 
-              </div>
-            </div>
-            <textarea 
-              className='input input-detail'
-              value = {detail}
-              onChange={(e)=>setDetail(e.target.value)}
-            ></textarea>
-          </div>
-          <div className='edit-box'>
-            <p className='explain fw-b'>포함되어야 하는 문자열이 있나요?</p>
-            <input 
-              className='input input-include'
-              value = {include}
-              onChange={(e)=>setInclude(e.target.value)}
-            ></input>
-          </div>
-          <div className='box-submit'>
-            <button 
-              className={`btn btn-submit btn-${category.color} text-bright fw-b`}
-              onClick={()=>handleSubmit()}
-            >
-              {makeText.buttonText()}
-            </button>
-          </div>
-        </div>
-      )
-    }
     if(submitState===1){
       return(
         <LoadingBox/>
@@ -136,7 +99,43 @@ export default function Home() {
             )
           }
         </nav>
-        <MainBox/>
+        {
+          submitState > 0 ? 
+          <MainBox/> :
+          <div className='box-main'>
+            <div className='edit-box'>
+              <div className='edit-detail-box'>
+                <p className='explain fw-b'>
+                  {makeText.detailExplainText()}
+                </p>
+                <div className='category-emoji'>
+                  { category.emoji } 
+                </div>
+              </div>
+              <textarea 
+                className='input input-detail'
+                value = {detail}
+                onChange={(e)=>setDetail(e.target.value)}
+              ></textarea>
+            </div>
+            <div className='edit-box'>
+              <p className='explain fw-b'>포함되어야 하는 문자열이 있나요?</p>
+              <input 
+                className='input input-include'
+                value = {include}
+                onChange={(e)=>setInclude(e.target.value)}
+              ></input>
+            </div>
+            <div className='box-submit'>
+              <button 
+                className={`btn btn-submit btn-${category.color} text-bright fw-b`}
+                onClick={()=>handleSubmit()}
+              >
+                {makeText.buttonText()}
+              </button>
+            </div>
+          </div>
+        }
       </div>
       <style jsx>{styleSheet}</style>
     </>
